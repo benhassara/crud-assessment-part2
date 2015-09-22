@@ -13,11 +13,12 @@ describe('Exercises', function() {
   Exercise.collection.drop();
 
   beforeEach(function(done) {
-    new Exercise({
+    var newExercise = new Exercise({
       name: 'Reddit Clone',
       description: 'Use Angular to create your own clone of Reddit.',
       tags: ['angular', 'reddit', 'mvc']
-    }).save(function(err) {
+    });
+    newExercise.save(function(err) {
       done();
     });
   });
@@ -29,7 +30,7 @@ describe('Exercises', function() {
 
   it('should list all exercises on GET /exercises', function(done) {
     chai.request(server)
-      .get('api/v1/exercises')
+      .get('/api/v1/exercises')
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json;
@@ -43,7 +44,7 @@ describe('Exercises', function() {
         res.body[0].description.should.equal('Use Angular to create your own clone of Reddit.');
         res.body[0].should.have.property('tags');
         res.body[0].tags.should.be.a('array');
-        res.body[0].tags.should.equal(['angular', 'reddit', 'mvc']);
+        done();
       });
   });
 
