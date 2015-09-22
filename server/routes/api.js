@@ -23,4 +23,22 @@ router.get('/exercise/:id', function(req, res, next) {
     .done();
 });
 
+// POST exercise
+router.post('/exercises', function(req, res, next) {
+  var newExercise = new Exercise({
+    name: req.body.name,
+    description: req.body.description,
+    tags: req.body.tags
+  });
+  newExercise.saveQ()
+    .then(function(result) {
+      res.json({
+        message: 'SUCCESS',
+        entry: newExercise
+      });
+    })
+    .catch(function(err) {res.json({message: 'POST FAILURE'});})
+    .done();
+});
+
 module.exports = router;

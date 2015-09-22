@@ -74,7 +74,35 @@ describe('Exercises', function() {
     });
   });
 
-  it('should add an exercise on POST /exercises');
+  it('should add an exercise on POST /exercises', function(done) {
+    chai.request(server)
+      .post('/api/v1/exercises')
+      .send({
+        'name': 'Node Translator',
+        'description': 'A translator app that uses Microsoft Translate.',
+        'tags': ['node','express','group project']
+      })
+      .end(function(err, res) {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.be.a('string');
+        res.body.message.should.equal('SUCCESS');
+        res.body.should.have.property('entry');
+        res.body.entry.should.be.a('object');
+        res.body.entry.should.have.property('_id');
+        res.body.entry.should.have.property('name');
+        res.body.entry.name.should.be.a('string');
+        res.body.entry.name.should.equal('Node Translator');
+        res.body.entry.should.have.property('description');
+        res.body.entry.description.should.be.a('string');
+        res.body.entry.description.should.equal('A translator app that uses Microsoft Translate.');
+        res.body.entry.should.have.property('tags');
+        res.body.entry.tags.should.be.a('array');
+        done();
+      });
+  });
 
   it('should let you edit an exercise entry on PUT /exercise/:id');
 
