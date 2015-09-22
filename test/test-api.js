@@ -104,7 +104,33 @@ describe('Exercises', function() {
       });
   });
 
-  it('should let you edit an exercise entry on PUT /exercise/:id');
+  it('should let you edit an exercise entry on PUT /exercise/:id', function(done) {
+    chai.request(server)
+      .get('/api/v1/exercises')
+      .end(function(err, res) {
+        chai.request(server)
+          .put('/api/v1/exercise' + res.body[0]._id)
+          .send({name: 'UPDATED NAME'})
+          .end(function(error, result) {
+            response.should.have.status(200);
+            response.should.be.json;
+            response.should.have.property('message');
+            response.message.should.be.a('string');
+            response.message.should.equal('UPDATED');
+            response.should.have.property('entry');
+            response.entry.should.be.a('object');
+            response.entry.should.have.property('_id');
+            response.entry.should.have.property('name');
+            response.entry.name.should.be.a('string');
+            response.entry.name.should.equal('UPDATED NAME');
+            response.entry.should.have.property('description');
+            response.entry.description.should.be.a('string');
+            response.entry.description.should.equal('Use Angular to create your own clone of Reddit.');
+            response.entry.should.have.property('tags');
+            response.entry.tags.should.be.a('array');
+          });
+      });
+  });
 
   it('should delete an exercise on DELETE /exercise/:id');
 });

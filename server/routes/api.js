@@ -41,4 +41,6 @@ router.post('/exercises', function(req, res, next) {
     .done();
 });
 
+// PUT update an exercise
+
 module.exports = router;
