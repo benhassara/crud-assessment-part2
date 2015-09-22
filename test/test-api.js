@@ -48,7 +48,31 @@ describe('Exercises', function() {
       });
   });
 
-  it('should return a single exercise on GET /exercise/:id');
+  it('should return a single exercise on GET /exercise/:id', function(done) {
+    new Exercise({
+      name: 'Rock Paper Scissors',
+      description: 'Use Angular to create an in browser version of rocl, paper, scissors.',
+      tags: ['angular','game','warmup']
+    }).save(function(err, data) {
+      chai.request(server)
+        .get('/api/v1/exercise/' + data._id)
+        .end(function (error, res) {
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.have.property('_id');
+          res.body.should.have.property('name');
+          res.body.name.should.be.a('string');
+          res.body.name.should.equal('Rock Paper Scissors');
+          res.body.should.have.property('description');
+          res.body.description.should.be.a('string');
+          res.body.description.should.equal('Use Angular to create an in browser version of rocl, paper, scissors.');
+          res.body.should.have.property('tags');
+          res.body.tags.should.be.a('array');
+          done();
+        });
+    });
+  });
 
   it('should add an exercise on POST /exercises');
 

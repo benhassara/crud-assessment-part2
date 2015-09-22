@@ -11,7 +11,15 @@ router.get('/', function(req, res, next) {
 router.get('/exercises', function(req, res, next) {
   Exercise.findQ()
     .then(function(result) {res.json(result);})
-    .catch(function(err) {res.send(err);})
+    .catch(function(err) {res.json({'error': err});})
+    .done();
+});
+
+// GET single exercise
+router.get('/exercise/:id', function(req, res, next) {
+  Exercise.findByIdQ(req.params.id)
+    .then(function (result) {res.json(result);})
+    .catch(function(err) {res.json({'error': err});})
     .done();
 });
 
