@@ -109,28 +109,44 @@ describe('Exercises', function() {
       .get('/api/v1/exercises')
       .end(function(err, res) {
         chai.request(server)
-          .put('/api/v1/exercise' + res.body[0]._id)
-          .send({name: 'UPDATED NAME'})
-          .end(function(error, result) {
+          .put('/api/v1/exercise/' + res.body[0]._id)
+          .send({
+            name: 'UPDATED NAME',
+            description: 'UPDATED DESCRIPTION',
+            tags: ['UPDATED', 'TAGS']
+          })
+          .end(function(error, response) {
             response.should.have.status(200);
             response.should.be.json;
-            response.should.have.property('message');
-            response.message.should.be.a('string');
-            response.message.should.equal('UPDATED');
-            response.should.have.property('entry');
-            response.entry.should.be.a('object');
-            response.entry.should.have.property('_id');
-            response.entry.should.have.property('name');
-            response.entry.name.should.be.a('string');
-            response.entry.name.should.equal('UPDATED NAME');
-            response.entry.should.have.property('description');
-            response.entry.description.should.be.a('string');
-            response.entry.description.should.equal('Use Angular to create your own clone of Reddit.');
-            response.entry.should.have.property('tags');
-            response.entry.tags.should.be.a('array');
+            response.body.should.have.property('message');
+            response.body.message.should.be.a('string');
+            response.body.message.should.equal('UPDATED');
+            response.body.should.have.property('entry');
+            response.body.entry.should.be.a('object');
+            response.body.entry.should.have.property('_id');
+            response.body.entry.should.have.property('name');
+            response.body.entry.name.should.be.a('string');
+            response.body.entry.name.should.equal('UPDATED NAME');
+            response.body.entry.should.have.property('description');
+            response.body.entry.description.should.be.a('string');
+            response.body.entry.description.should.equal('UPDATED DESCRIPTION');
+            response.body.entry.should.have.property('tags');
+            response.body.entry.tags.should.be.a('array');
+            done();
           });
       });
   });
 
-  it('should delete an exercise on DELETE /exercise/:id');
+  it('should delete an exercise on DELETE /exercise/:id', function(done) {
+    chai.request(server)
+      .get('/api/v1/exercises')
+      .end(function(error, response) {
+        chai.request(server)
+          .delete('/api/v1/exercise/' + response.body._id)
+          .end(function(err, res) {
+            res.should.have.status(200);
+            res.should.be.json;
+          });
+      });
+  });
 });
