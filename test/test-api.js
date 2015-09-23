@@ -142,10 +142,25 @@ describe('Exercises', function() {
       .get('/api/v1/exercises')
       .end(function(error, response) {
         chai.request(server)
-          .delete('/api/v1/exercise/' + response.body._id)
+          .delete('/api/v1/exercise/' + response.body[0]._id)
           .end(function(err, res) {
             res.should.have.status(200);
             res.should.be.json;
+            res.body.should.have.property('message');
+            res.body.message.should.be.a('string');
+            res.body.message.should.equal('ENTRY DELETED');
+            res.body.should.have.property('entry');
+            res.body.entry.should.be.a('object');
+            res.body.entry.should.have.property('_id');
+            res.body.entry.should.have.property('name');
+            res.body.entry.name.should.be.a('string');
+            res.body.entry.name.should.equal('Reddit Clone');
+            res.body.entry.should.have.property('description');
+            res.body.entry.description.should.be.a('string');
+            res.body.entry.description.should.equal('Use Angular to create your own clone of Reddit.');
+            res.body.entry.should.have.property('tags');
+            res.body.entry.tags.should.be.a('array');
+            done();
           });
       });
   });

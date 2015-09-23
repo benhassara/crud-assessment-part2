@@ -49,18 +49,22 @@ router.put('/exercise/:id', function(req, res, next) {
         'message': 'UPDATED',
         'entry': data
       });
-    }).catch(function(err) {res.json(err);})
+    })
+    .catch(function(err) {res.json(err);})
+    .done();
+});
+
+// DELETE an exercise
+router.delete('/exercise/:id', function(req, res, next) {
+  Exercise.findByIdAndRemoveQ(req.params.id)
+    .then(function(result) {
+      res.json({
+        message: 'ENTRY DELETED',
+        entry: result
+      });
+    })
+    .catch(function(err) {res.json(err);})
     .done();
 });
 
 module.exports = router;
-
-function parsePut(data) {
-  var out = {};
-
-  if (data.name) {out.name = data.name;}
-  if (data.description) {out.description = data.description;}
-  if (data.tags.length !== 0) {out.tags = data.tags;}
-
-  return out;
-}
