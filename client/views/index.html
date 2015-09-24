@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="exercisesApp">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+
+    <div class="container">
+
+      <h1 class="text-center">gExercises</h1>
+
+      <!-- open the modal -->
+      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#formModal" name="button">
+        Add an Exercise
+      </button>
+
+    </div>
+
+
+    <!-- form modal -->
+    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" ng-controller="AddExercise">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="formModalTitle">Add an Exercise</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="nameInput">Name</label>
+                <input ng-model="ex.name" id="nameInput" type="text" class="form-control" placeholder="Exercise name">
+              </div>
+              <div class="form-group">
+                <label for="descInput">Description</label>
+                <textarea ng-model="ex.description" id="descInput" class="form-control" rows="8" cols="40"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="tagsInput">Tags</label>
+                <input ng-model="ex.tags" type="text" class="form-control" placeholder="Assign tags">
+                <p class="help-block">
+                  Enter a comma separated list of tags.
+                </p>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button ng-click="postExercise()" type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.min.js" charset="utf-8"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.min.js" charset="utf-8"></script> -->
+    <script type="text/javascript" src="../js/app.js"></script>
+    <script src="../js/services.js" charset="utf-8"></script>
+    <script src="../js/controllers.js" charset="utf-8"></script>
+  </body>
+</html>

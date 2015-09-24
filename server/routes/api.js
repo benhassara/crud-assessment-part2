@@ -10,7 +10,10 @@ router.get('/', function(req, res, next) {
 // GET all exercises
 router.get('/exercises', function(req, res, next) {
   Exercise.findQ()
-    .then(function(result) {res.json(result);})
+    .then(function(result) {
+      console.log(result);
+      res.json(result);
+    })
     .catch(function(err) {res.json({'error': err});})
     .done();
 });
