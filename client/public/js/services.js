@@ -32,5 +32,9 @@ function exercises($http) {
     return $http.put('/api/v1/exercise/' + id, payload);
   };
 
+  obj.delete = function(id) {
+    return $http.delete('/api/v1/exercise/' + id);
+  };
+
   return obj;
 }

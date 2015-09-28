@@ -45,7 +45,6 @@ router.post('/exercises', function(req, res, next) {
 
 // PUT update an exercise
 router.put('/exercise/:id', function(req, res, next) {
-  console.log(req.body);
   Exercise.findByIdAndUpdateQ(req.params.id, req.body, {new: true})
     .then(function(data) {
       res.json({
