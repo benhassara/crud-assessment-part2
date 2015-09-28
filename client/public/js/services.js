@@ -1,33 +1,35 @@
 angular.module('exercisesApp')
-  .factory('httpFact', httpFact)
   .factory('exercises', exercises);
 
-httpFact.$inject = ['$http'];
-exercises.$inject = ['httpFact'];
+exercises.$inject = ['$http'];
 
-function httpFact($http) {
+function exercises($http) {
   var obj = {};
 
-  obj.get = function(url) {
-    return $http.get(url);
+  var list = [];
+
+  obj.populateExercises = function() {
+    return $http.get('/api/v1/exercises');
   };
 
-  obj.post = function(url, payload) {
-    return $http.post(url, payload);
+  obj.getExercises = function() {
+    return list;
   };
 
-  return obj;
-}
+  obj.setExercises = function(set) {
+    list = set;
+  };
 
-function exercises(httpFact) {
-  var obj = {};
+  obj.addExercise = function(newExercise) {
+    list.push(newExercise);
+  };
 
-  obj.all = [];
+  obj.post = function(payload) {
+    return $http.post('/api/v1/exercises', payload);
+  };
 
-  obj.getAllExercises = function() {
-    httpFact.get('/api/v1/exercises').then(function(response) {
-      obj.all = response.data;
-    });
+  obj.put = function(id, payload) {
+    return $http.put('/api/v1/exercise/' + id, payload);
   };
 
   return obj;

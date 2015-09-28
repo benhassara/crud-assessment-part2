@@ -11,7 +11,6 @@ router.get('/', function(req, res, next) {
 router.get('/exercises', function(req, res, next) {
   Exercise.findQ()
     .then(function(result) {
-      console.log(result);
       res.json(result);
     })
     .catch(function(err) {res.json({'error': err});})
@@ -46,6 +45,7 @@ router.post('/exercises', function(req, res, next) {
 
 // PUT update an exercise
 router.put('/exercise/:id', function(req, res, next) {
+  console.log(req.body);
   Exercise.findByIdAndUpdateQ(req.params.id, req.body, {new: true})
     .then(function(data) {
       res.json({
