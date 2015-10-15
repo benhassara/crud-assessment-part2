@@ -18,7 +18,7 @@ script:
 deploy:
   provider: heroku
   api_key: 213af55f-b5ed-4c27-b1df-0435540b0c5d
-  app: safe-fortress-6903
+  app: fathomless-fjord-5401
   on:
     branch: master
     node: "0.12"
