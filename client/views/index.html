@@ -37,7 +37,7 @@
           <tbody class="text-center">
             <tr ng-repeat="exercise in exerciseList">
               <td data-id={{exercise._id}}>
-                <i ng-click="openForEdit($event)" class="fa fa-pencil-square-o text-info"></i>  <i class="fa fa-times text-danger"></i>
+                <i ng-click="openForEdit($event)" class="fa fa-pencil-square-o text-info"></i>  <i ng-click="deleteExercise($event)" class="fa fa-times text-danger"></i>
               </td>
               <td><p>{{exercise.name}}</p></td>
               <td><p>{{exercise.description}}</p></td>

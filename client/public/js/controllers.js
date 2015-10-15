@@ -11,7 +11,6 @@ function ExercisesCtrl($scope, exercises) {
   exercises.populateExercises()
     .then(function(response) {
       $scope.exerciseList = response.data;
-      console.log($scope.exerciseList);
     });
 
   $scope.openModal = function() {
@@ -38,7 +37,7 @@ function ExercisesCtrl($scope, exercises) {
 
     exercises.post($scope.ex)
       .then(function(response) {
-        $scope.apply($scope.exerciseList.push(response.data.entry));
+        $scope.exerciseList.push(response.data.entry);
       });
 
     $scope.ex = {};
@@ -89,6 +88,22 @@ function ExercisesCtrl($scope, exercises) {
 
         $scope.exerciseList[index] = response.data.entry;
         $('#formModal').modal('hide');
+      });
+  };
+
+  $scope.deleteExercise = function(event) {
+    var id = event.currentTarget.parentElement.dataset.id;
+    exercises.delete(id)
+      .then(function(response) {
+        console.log(response);
+        var index;
+
+        for (var i = 0; i < $scope.exerciseList.length; i++) {
+          if ($scope.exerciseList[i]._id === response.data.entry._id)
+            index = i;
+        }
+
+        $scope.exerciseList.splice(index, 1);
       });
   };
 }
