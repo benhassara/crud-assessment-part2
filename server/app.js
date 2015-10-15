@@ -19,12 +19,12 @@ var app = express();
 var config = require('./_config');
 
 // *** mongoose *** //
-mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
-  if (err)
-    console.log('Error connecting to the database. ' + err);
-  else
-    console.log('Connected to database: ' + config.mongoURI[app.settings.env]);
-});
+// mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
+//   if (err)
+//     console.log('Error connecting to the database. ' + err);
+//   else
+//     console.log('Connected to database: ' + config.mongoURI[app.settings.env]);
+// });
 
 
 // *** static directory *** //

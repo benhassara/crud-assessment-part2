@@ -21,3 +21,4 @@ deploy:
   app: safe-fortress-6903
   on:
     branch: master
+    node: "0.12"
